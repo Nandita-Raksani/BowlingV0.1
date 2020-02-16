@@ -24,4 +24,29 @@ public class BowlingGameTest {
         game.roll(1);
         assertEquals(1, game.getScore());
     }
+
+    @Test
+    public void scoreShouldBe40When2PinsKnockedOn20Rolls(){
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        game.roll(2);
+        assertEquals(40,game.getScore());
+    }
 }
