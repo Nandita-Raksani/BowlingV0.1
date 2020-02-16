@@ -55,6 +55,14 @@ public class BowlingGameTest {
         assertEquals(300, game.getScore());
     }
 
+    @Test
+    public void shouldHaveScoreOf150IfAllRollsAreSpare() {
+        for (int numberOfFrame = 0; numberOfFrame < 11 ; numberOfFrame++) {
+            rollCurrentFrame(5, 5);
+        }
+        assertEquals(150, game.getScore());
+    }
+
     private void rollCurrentFrame(int firstRoll, int secondRoll){
         Frame currentFrame = new Frame();
         currentFrame.setFirstRoll(firstRoll);
