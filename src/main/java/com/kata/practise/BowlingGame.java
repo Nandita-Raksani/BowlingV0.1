@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BowlingGame {
 
-    public static final int MAXIMUM_PINS_PER_FRAME = 10;
+    private static final int MAXIMUM_PINS_PER_FRAME = 10;
     private List<Frame> gameBoard = new ArrayList<Frame>();
     private Frame prevFrame;
     private static int currentPositionOfFrame;
@@ -26,14 +26,19 @@ public class BowlingGame {
         for (Frame frame : gameBoard) {
             ++currentPositionOfFrame;
             if(isNotBonus()) {
-                if(isStrike(frame)){
-                    score += calculateScoreForStrike(frame);
-                } else if(isSpare(frame)){
-                    score += calculateScoreForSpare(frame);
-                } else {
-                    score += frame.getFirstRoll() + frame.getSecondRoll();
-                }
+                score = calculateScoreForGame(frame, score);
             }
+        }
+        return score;
+    }
+
+    private int calculateScoreForGame(Frame frame, int score) {
+        if(isStrike(frame)){
+            score += calculateScoreForStrike(frame);
+        } else if(isSpare(frame)){
+            score += calculateScoreForSpare(frame);
+        } else {
+            score += calculateScoreForOneFrame(frame);
         }
         return score;
     }
@@ -43,13 +48,21 @@ public class BowlingGame {
     }
 
     private int calculateScoreForStrike(Frame frame) {
-        int score = MAXIMUM_PINS_PER_FRAME + frame.getNextFrame().getFirstRoll();
+        int score = MAXIMUM_PINS_PER_FRAME + getFirstRollOfNextFrame(frame);
         if (isStrike(frame.getNextFrame())) {
-            score += frame.getNextFrame().getNextFrame().getFirstRoll();
+            score += getFirstRollOfNextFrame(frame.getNextFrame());
         } else {
-            score += frame.getNextFrame().getSecondRoll();
+            score += getSecondRollOfNextFrame(frame);
         }
         return score;
+    }
+
+    private int getSecondRollOfNextFrame(Frame frame) {
+        return frame.getNextFrame().getSecondRoll();
+    }
+
+    private int getFirstRollOfNextFrame(Frame frame) {
+        return frame.getNextFrame().getFirstRoll();
     }
 
     private boolean isStrike(Frame frame) {
@@ -57,10 +70,14 @@ public class BowlingGame {
     }
 
     private int calculateScoreForSpare(Frame frame) {
-        return MAXIMUM_PINS_PER_FRAME + frame.getNextFrame().getFirstRoll();
+        return MAXIMUM_PINS_PER_FRAME + getFirstRollOfNextFrame(frame);
     }
 
     private boolean isSpare(Frame frame) {
-        return frame.getFirstRoll() + frame.getSecondRoll() == MAXIMUM_PINS_PER_FRAME;
+        return calculateScoreForOneFrame(frame) == MAXIMUM_PINS_PER_FRAME;
+    }
+
+    private int calculateScoreForOneFrame(Frame frame) {
+        return frame.getFirstRoll() + frame.getSecondRoll();
     }
 }
