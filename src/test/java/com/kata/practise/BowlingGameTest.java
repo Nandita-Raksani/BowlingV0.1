@@ -27,9 +27,7 @@ public class BowlingGameTest {
 
     @Test
     public void scoreShouldBe40When2PinsKnockedOn20Rolls(){
-        for (int numberOfFrame = 0; numberOfFrame < 10 ; numberOfFrame++) {
-            rollCurrentFrame(2, 2);
-        }
+        rollManyFrames(2, 2, 10);
         assertEquals(40,game.getScore());
     }
 
@@ -49,20 +47,21 @@ public class BowlingGameTest {
 
     @Test
     public void shouldHaveScoreOf300OnPerfectGame(){
-        for (int numberOfFrame = 0; numberOfFrame < 12 ; numberOfFrame++) {
-            rollCurrentFrame(10, 0);
-        }
+        rollManyFrames(10, 0, 12);
         assertEquals(300, game.getScore());
     }
 
     @Test
     public void shouldHaveScoreOf150IfAllRollsAreSpare() {
-        for (int numberOfFrame = 0; numberOfFrame < 11 ; numberOfFrame++) {
-            rollCurrentFrame(5, 5);
-        }
+        rollManyFrames(5, 5, 11);
         assertEquals(150, game.getScore());
     }
 
+    private void rollManyFrames(int firstRoll, int secondRoll, int numberOfTimesToRoll){
+        for (int numberOfFrame = 0; numberOfFrame < numberOfTimesToRoll ; numberOfFrame++) {
+            rollCurrentFrame(firstRoll, secondRoll);
+        }
+    }
     private void rollCurrentFrame(int firstRoll, int secondRoll){
         Frame currentFrame = new Frame();
         currentFrame.setFirstRoll(firstRoll);
