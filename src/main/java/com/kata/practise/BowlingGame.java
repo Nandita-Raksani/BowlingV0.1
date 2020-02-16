@@ -7,6 +7,10 @@ public class BowlingGame {
 
     private List<Frame> gameBoard = new ArrayList<Frame>();
     private Frame prevFrame;
+    private static int currentPositionOfFrame;
+    public BowlingGame() {
+        currentPositionOfFrame = 0;
+    }
 
     public void roll(Frame currentFrame) {
         if (prevFrame != null) {
@@ -19,19 +23,32 @@ public class BowlingGame {
     public int getScore() {
         int score = 0;
         for (Frame frame : gameBoard) {
-            if(isStrike(frame)){
-                score += calculateScoreForStrike(frame);
-            } else if(isSpare(frame)){
-                score += calculateScoreForSpare(frame);
-            } else {
-                score += frame.getFirstRoll() + frame.getSecondRoll();
+            ++currentPositionOfFrame;
+            if(isNotBonus()) {
+                if(isStrike(frame)){
+                    score += calculateScoreForStrike(frame);
+                } else if(isSpare(frame)){
+                    score += calculateScoreForSpare(frame);
+                } else {
+                    score += frame.getFirstRoll() + frame.getSecondRoll();
+                }
             }
         }
         return score;
     }
 
+    private boolean isNotBonus() {
+        return currentPositionOfFrame <= 10;
+    }
+
     private int calculateScoreForStrike(Frame frame) {
-        return 10 + frame.getNextFrame().getFirstRoll() + frame.getNextFrame().getSecondRoll();
+        int score = 10 + frame.getNextFrame().getFirstRoll();
+        if (isStrike(frame.getNextFrame())) {
+            score += frame.getNextFrame().getNextFrame().getFirstRoll();
+        } else {
+            score += frame.getNextFrame().getSecondRoll();
+        }
+        return score;
     }
 
     private boolean isStrike(Frame frame) {

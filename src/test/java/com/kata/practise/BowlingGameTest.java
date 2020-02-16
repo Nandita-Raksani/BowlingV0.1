@@ -47,6 +47,14 @@ public class BowlingGameTest {
         assertEquals(28, game.getScore());
     }
 
+    @Test
+    public void shouldHaveScoreOf300OnPerfectGame(){
+        for (int numberOfFrame = 0; numberOfFrame < 12 ; numberOfFrame++) {
+            rollCurrentFrame(10, 0);
+        }
+        assertEquals(300, game.getScore());
+    }
+
     private void rollCurrentFrame(int firstRoll, int secondRoll){
         Frame currentFrame = new Frame();
         currentFrame.setFirstRoll(firstRoll);
