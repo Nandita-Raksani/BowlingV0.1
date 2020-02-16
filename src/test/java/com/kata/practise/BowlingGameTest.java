@@ -40,6 +40,13 @@ public class BowlingGameTest {
         assertEquals(16, game.getScore());
     }
 
+    @Test
+    public void scoreShouldAddWith2ImmediateRollForStrike(){
+        rollCurrentFrame(10,0);
+        rollCurrentFrame(4,5);
+        assertEquals(28, game.getScore());
+    }
+
     private void rollCurrentFrame(int firstRoll, int secondRoll){
         Frame currentFrame = new Frame();
         currentFrame.setFirstRoll(firstRoll);

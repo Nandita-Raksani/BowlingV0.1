@@ -19,7 +19,9 @@ public class BowlingGame {
     public int getScore() {
         int score = 0;
         for (Frame frame : gameBoard) {
-            if(isSpare(frame)){
+            if(frame.getFirstRoll() == 10){
+                score += 10 + frame.getNextFrame().getFirstRoll() + frame.getNextFrame().getSecondRoll();
+            } else if(isSpare(frame)){
                 score += calculateScoreForSpare(frame);
             } else {
                 score += frame.getFirstRoll() + frame.getSecondRoll();
