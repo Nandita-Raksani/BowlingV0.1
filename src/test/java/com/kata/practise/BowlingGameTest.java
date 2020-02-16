@@ -15,38 +15,28 @@ public class BowlingGameTest {
 
     @Test
     public void shouldStartGameWithScore0OnFirstRoll() {
-        game.roll(0);
+        rollCurrentFrame(0,0);
         assertEquals(0, game.getScore());
     }
 
     @Test
     public void scoreShouldBe1When1PinKnockedOnFirstRoll() {
-        game.roll(1);
+        rollCurrentFrame(1,0);
         assertEquals(1, game.getScore());
     }
 
     @Test
     public void scoreShouldBe40When2PinsKnockedOn20Rolls(){
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
-        game.roll(2);
+        for (int numberOfFrame = 0; numberOfFrame < 10 ; numberOfFrame++) {
+            rollCurrentFrame(2, 2);
+        }
         assertEquals(40,game.getScore());
+    }
+
+    private void rollCurrentFrame(int firstRoll, int secondRoll){
+        Frame currentFrame = new Frame();
+        currentFrame.setFirstRoll(firstRoll);
+        currentFrame.setSecondRoll(secondRoll);
+        game.roll(currentFrame);
     }
 }
