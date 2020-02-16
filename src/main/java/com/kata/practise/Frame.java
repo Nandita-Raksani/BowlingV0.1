@@ -5,6 +5,8 @@ public class Frame {
 
     private int secondRoll;
 
+    private Frame nextFrame;
+
     public int getFirstRoll() {
         return firstRoll;
     }
@@ -19,6 +21,14 @@ public class Frame {
 
     public void setSecondRoll(int secondRoll) {
         this.secondRoll = secondRoll;
+    }
+
+    public Frame getNextFrame() {
+        return nextFrame;
+    }
+
+    public void setNextFrame(Frame nextFrame) {
+        this.nextFrame = nextFrame;
     }
 
 }

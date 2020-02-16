@@ -33,6 +33,13 @@ public class BowlingGameTest {
         assertEquals(40,game.getScore());
     }
 
+    @Test
+    public void scoreShouldAddWith1ImmediateRollForSpare(){
+        rollCurrentFrame(5,5);
+        rollCurrentFrame(3,0);
+        assertEquals(16, game.getScore());
+    }
+
     private void rollCurrentFrame(int firstRoll, int secondRoll){
         Frame currentFrame = new Frame();
         currentFrame.setFirstRoll(firstRoll);
