@@ -5,6 +5,7 @@ import java.util.List;
 
 public class BowlingGame {
 
+    public static final int MAXIMUM_PINS_PER_FRAME = 10;
     private List<Frame> gameBoard = new ArrayList<Frame>();
     private Frame prevFrame;
     private static int currentPositionOfFrame;
@@ -42,7 +43,7 @@ public class BowlingGame {
     }
 
     private int calculateScoreForStrike(Frame frame) {
-        int score = 10 + frame.getNextFrame().getFirstRoll();
+        int score = MAXIMUM_PINS_PER_FRAME + frame.getNextFrame().getFirstRoll();
         if (isStrike(frame.getNextFrame())) {
             score += frame.getNextFrame().getNextFrame().getFirstRoll();
         } else {
@@ -52,14 +53,14 @@ public class BowlingGame {
     }
 
     private boolean isStrike(Frame frame) {
-        return frame.getFirstRoll() == 10;
+        return frame.getFirstRoll() == MAXIMUM_PINS_PER_FRAME;
     }
 
     private int calculateScoreForSpare(Frame frame) {
-        return 10 + frame.getNextFrame().getFirstRoll();
+        return MAXIMUM_PINS_PER_FRAME + frame.getNextFrame().getFirstRoll();
     }
 
     private boolean isSpare(Frame frame) {
-        return frame.getFirstRoll() + frame.getSecondRoll() == 10;
+        return frame.getFirstRoll() + frame.getSecondRoll() == MAXIMUM_PINS_PER_FRAME;
     }
 }
