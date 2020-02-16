@@ -54,3 +54,5 @@ After completion of above steps, the report will be available in below path
 
 <PROJECT_ROOT_FOLDER>\target\site\jacoco\index.html
 ```
+# Pit Test Coverage Report
+![](PITTestReport/PIT_Coverage_Report.png)
